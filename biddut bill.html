@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Document</title>
+        <style>
+        table{
+         
+         background-color: rgba(126, 129, 159, 1);
+         margin-top:10px;      
+             
+        }
+          table,tr,td,th{
+              border:2px solid;
+              border-collapse:collapse;
+              text-align: center;
+              color: rgba(253, 246, 35,70%);
+          }      
+                
+     #title{
+          color:#D67B7B;
+          font-size:20px;
+          background-color: #30D7C8;
+          text-shadow:2px 1px;
+     }   
+     #Unit{
+        width:40%;
+        height:25px;
+        border:2px solid #FD2323;
+        border-radius:5px;
+        
+     }
+  
+    button{
+         height:32px;
+         width:80px;
+         border-radius:5px;
+         background-color:rgba(164, 253, 35, 100%);
+         font-size:18px;
+         font-weight:italic;
+         box-shadow:1px 2px 3px rgba(164, 253, 35, 50%) ;
+    }
+    button:hover{
+         color:rgba(176, 32, 210, 100%);
+    }
+    button:active{
+       color:rgba(176, 32, 210,40%);
+    }
+    .head{
+         color: #77FF4E;
+    }
+        </style>
+</head>
+<body>
+        <div class="input">
+    <input type="number" id="Unit" placeholder="Enter your unit">
+<button type="submit" onclick="Send()">Check</button>
+        </div>
+      <table>
+              <tr>
+       <th  id="title" colspan="4">ধাপ অনুযায়ী বিদ্যুৎ ব্যবহারে বিবরণ</th>
+              </tr>
+              
+<tr class="head">
+   <td>ধাপ</td>
+   <td>মূল্যহার (Tk/kWh)</td>
+   <td>বিদ্যুৎ ব্যবহার (kWh)</td>
+   <td>এনার্জি চার্জ  (Tk)</td>
+  
+</tr>
+<tr>
+    <td> লাইফ লাইন [0-50]</td>
+    <td>4.63</td>
+    <td id="lifeUnit"></td>
+    <td id="lifeTk"></td>
+</tr>
+              
+ <tr>
+    <td>প্রথম [0-75]</td>
+    <td>5.26</td>
+    <td id="firstUnit"></td>
+    <td id="firstTk"></td>
+</tr>
+                          
+ <tr>
+    <td>দ্বিতীয়[76-200]</td>
+    <td>7.2</td>
+    <td id="secondUnit"></td>
+    <td id="secondTk"></td>
+</tr>
+                          
+<tr>
+    <td>তৃতীয়[201-300]</td>
+    <td>7.59</td>
+    <td id="thirdUnit"></td>
+    <td id="thirdTk"></td>
+</tr>
+                           
+<tr>
+    <td>চতুর্থ [301-400]</td>
+    <td>8.02</td>
+    <td id="fourUnit"></td>
+    <td id="fourTK"></td>
+</tr>
+                           
+  <tr>
+        <td> পঞ্চম [401-600]</td>
+        <td>12.67</td>
+        <td id="fiveUnit"></td>
+        <td id="fiveTk"></td>
+  </tr>       
+                           
+   <tr>
+     <td>ষষ্ঠ [600 +]</td>     
+     <td>14.61</td>
+     <td id="sixUnit"></td>
+     <td id="sixTk"></td>
+   
+     
+           
+   </tr>           
+              
+              
+              
+              
+      </table>
+      
+      <script>
+
+   
+ function lifeLine(unit){
+    let tk=unit*4.63;
+    let t0=tk.toFixed(2);
+      document.getElementById('lifeUnit').innerHTML=unit;
+      document.getElementById('lifeTk').innerHTML=t0;
+ }
+ function first(unit){
+        lifeLine(0);
+
+  document.getElementById('firstUnit').innerHTML=unit;
+ let tk=unit*5.26;
+ let t1=tk.toFixed(2);
+document.getElementById('firstTk').innerHTML=t1;
+       
+         
+     
+ }
+ function second(unit){
+         lifeLine(0);
+         first(75);
+      let extraUnit=unit-75;
+      let tk=extraUnit*7.2;
+      let t2=tk.toFixed(2);
+    document.getElementById('secondUnit').innerHTML=extraUnit;
+ document.getElementById('secondTk').innerHTML=t2;
+ }
+ 
+function third(unit){
+      lifeLine(0);
+      first(75);
+      second(200);
+     let extraUnit=unit-200;
+     let tk=extraUnit*7.59;
+     let t3=tk.toFixed(2);
+     document.getElementById('thirdUnit').innerHTML=extraUnit;
+     document.getElementById('thirdTk').innerHTML=t3;
+}
+ 
+function four(unit){
+      lifeLine(0);
+      first(75);
+      second(200);
+      third(300);
+     let extraUnit=unit-300;
+     let tk=extraUnit*8.02;
+     let t4=tk.toFixed(2);
+     document.getElementById('fourUnit').innerHTML=extraUnit;
+     document.getElementById('fourTK').innerHTML=t4;
+} 
+ 
+function five(unit) {
+        lifeLine(0);
+        first(75);
+        second(200);
+        third(300);
+        four(400);
+        let extraUnit = unit - 400;
+        let tk = extraUnit * 12.67;
+        let t5= tk.toFixed(2);
+        document.getElementById('fiveUnit').innerHTML = extraUnit;
+        document.getElementById('fiveTk').innerHTML = t5;
+} 
+ function six(unit){
+        lifeLine(0);
+        first(75);
+        second(200);
+        third(300);
+        four(400);
+        five(600);
+        let extraUnit = unit -600;
+        let tk= extraUnit * 14.61;
+        let t6 = tk.toFixed(2);
+   document.getElementById('sixUnit').innerHTML = extraUnit;
+   document.getElementById('sixTk').innerHTML = t6;      
+         
+ }
+              
+   function Send(){
+   let unit=document.getElementById('Unit').value;          
+if (unit >= 0 && unit <= 50) {
+     lifeLine(unit);
+}          
+else if (unit >= 0 && unit<= 75) {
+     first(unit);
+}           
+else if (unit >= 76 && unit <= 200) {
+      second(unit);
+}   
+ else if (unit>= 201 && unit<= 300) {
+     third(unit);    
+ }          
+           
+ else if (unit >= 301 && unit<= 400) {
+      four(unit);
+ }          
+else if (unit >= 401 && unit<= 600) {
+      five(unit);  
+}           
+ else if(unit >= 601 && unit <= Infinity)  {     
+      six(unit);   
+}
+  else {
+       alert("invalid unit");
+  }
+  
+  
+   }         
+ 
+              
+              
+      </script>
+</body>
+</html>
